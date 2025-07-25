@@ -352,9 +352,7 @@ body {
 
 
 
-    <base target="_top">
-  <!--?!= HtmlService.createHtmlOutputFromFile("css.html").getContent(); ?-->
-
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>暑中お見舞い申し上げます</title> <link rel="stylesheet" href="css.css"> 
 
 
 
@@ -583,95 +581,60 @@ body {
             </div>
         </div>
         <p>以上。</p>
-  <script>
-    // ローディング画面を非表示にしてコンテンツを表示する関数
-    function hideLoadingScreen() {
-      document.getElementById('loading').style.display = 'none';
-      document.getElementById('content').style.display = 'block'; // コンテンツを表示
-    }
+    <script>
+        // ローディング画面を非表示にしてコンテンツを表示する関数
+        function hideLoadingScreen() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block'; // コンテンツを表示
+        }
 
-    // 指定したミリ秒間待機するPromiseを返す関数
-    function minimumDelay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
+        // 指定したミリ秒間待機するPromiseを返す関数
+        function minimumDelay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
 
-    // ページ全体のDOMが読み込まれたら実行
-    document.addEventListener('DOMContentLoaded', function() {
-      // 1. ページコンテンツが完全に読み込まれるPromise
-      // (ここではDOMContentLoadedなので、HTML構造は既に準備できている)
-      const contentReadyPromise = Promise.resolve();
+        // ページ全体のDOMが読み込まれたら実行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. ページコンテンツが完全に読み込まれるPromise
+            // (ここではDOMContentLoadedなので、HTML構造は既に準備できている)
+            const contentReadyPromise = Promise.resolve();
 
-      // 2. 最低1秒間待機するPromise
-      const minTimePromise = minimumDelay(1000); // 1000ミリ秒 = 1秒
+            // 2. 最低1秒間待機するPromise
+            const minTimePromise = minimumDelay(1000); // 1000ミリ秒 = 1秒
 
-      // 両方のPromiseが完了したらローディング画面を非表示にする
-      Promise.all([contentReadyPromise, minTimePromise])
-        .then(() => {
-          hideLoadingScreen();
+            // 両方のPromiseが完了したらローディング画面を非表示にする
+            Promise.all([contentReadyPromise, minTimePromise])
+                .then(() => {
+                    hideLoadingScreen();
+                });
         });
-    });
 
-    // --- 【補足】もしGASからデータを取得してコンテンツを生成する場合の例 ---
-    // もしページ表示時にGASからデータを取得して動的にコンテンツを生成するなら、
-    // 上記の contentReadyPromise の代わりに、GASからのデータ取得Promiseを使います。
-    //
-    // 例:
-    // document.addEventListener('DOMContentLoaded', function() {
-    //   const gasDataFetchPromise = new Promise((resolve, reject) => {
-    //     google.script.run
-    //       .withSuccessHandler(function(data) {
-    //         // 取得したデータでコンテンツを更新
-    //         // document.getElementById('content').innerHTML = data;
-    //         resolve(); // データ取得完了
-    //       })
-    //       .withFailureHandler(function(error) {
-    //         console.error("データ取得エラー:", error.message);
-    //         reject(error); // エラー発生
-    //       })
-    //       .getInitialContentData(); // あなたのGAS関数名
-    //   });
-    //
-    //   const minTimePromise = minimumDelay(1000);
-    //
-    //   Promise.all([gasDataFetchPromise, minTimePromise])
-    //     .then(() => {
-    //       hideLoadingScreen();
-    //     })
-    //     .catch(error => {
-    //       console.error("ローディング中のエラー:", error);
-    //       // エラー時でもローディングを非表示にするか、エラーメッセージを表示する
-    //       hideLoadingScreen();
-    //     });
-    // });
-  </script>
+        // モーダル要素を取得
+        var modal = document.getElementById("myModal");
 
-        <script>
-            // モーダル要素を取得
-var modal = document.getElementById("myModal");
+        // モーダルを開くボタンを取得
+        var btn = document.getElementById("openModal");
 
-// モーダルを開くボタンを取得
-var btn = document.getElementById("openModal");
+        // 閉じるボタン（×）を取得
+        var span = document.getElementsByClassName("close")[0];
 
-// 閉じるボタン（×）を取得
-var span = document.getElementsByClassName("close")[0];
+        // ボタンがクリックされたらモーダルを開く
+        btn.onclick = function() {
+            modal.style.display = "flex"; // CSSのjustify-contentとalign-itemsを有効にするためにflexに
+        }
 
-// ボタンがクリックされたらモーダルを開く
-btn.onclick = function() {
-  modal.style.display = "flex"; // CSSのjustify-contentとalign-itemsを有効にするためにflexに
-}
+        // 閉じるボタンがクリックされたらモーダルを閉じる
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
 
-// 閉じるボタンがクリックされたらモーダルを閉じる
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// モーダルの外側がクリックされたらモーダルを閉じる
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-        </script>
+        // モーダルの外側がクリックされたらモーダルを閉じる
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 
 
